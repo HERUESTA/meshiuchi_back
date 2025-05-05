@@ -29,8 +29,9 @@ gem "kamal", require: false
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
 
-# ChatGPT
-gem "openai"
+gem "httparty"
+
+gem "rack-cors"
 
 
 group :development, :test do
