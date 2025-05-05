@@ -19,7 +19,7 @@ class Api::V1::MoodRecipesController < ApplicationController
       raw = ai.chat(
         parameters: {
           model: "gpt-4o-mini",
-          messages: [{ role: "user", content: prompt }],
+          messages: [ { role: "user", content: prompt } ],
           temperature: 0.8
         }
       ).dig("choices", 0, "message", "content")
