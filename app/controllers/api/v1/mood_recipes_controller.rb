@@ -1,5 +1,4 @@
 class Api::V1::MoodRecipesController < ApplicationController
-  protect_from_forgery with: :null_session
   def create
     mood = params.require(:mood)
 
@@ -16,7 +15,7 @@ class Api::V1::MoodRecipesController < ApplicationController
       ]
       PROMPT
 
-      ai = OpenAI::Client.new
+      ai = ::OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
       raw = ai.chat(
         parameters: {
           model: "gpt-4o-mini",
