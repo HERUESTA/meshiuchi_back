@@ -7,7 +7,7 @@ app = 'meshiuchi-back'
 primary_region = 'nrt'
 
 [build]
-  dockerfile = './Dockerfile'
+  dockerfile = './back/Dockerfile'
 
 [http_service]
   internal_port = 80
