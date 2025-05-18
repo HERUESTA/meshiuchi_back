@@ -8,8 +8,11 @@ default: &default
   host:     <%= ENV.fetch("PGHOST", "localhost") %>
 
 production:
-  <<: *default
-  database: <%= ENV.fetch("PGDATABASE", "meshiuchi_production") %>
-  cable:
+  primary: &prod_primary           
     <<: *default
     database: <%= ENV.fetch("PGDATABASE", "meshiuchi_production") %>
+
+  cable:                               
+    <<: *prod_primary                    
+    database: <%= ENV.fetch("PGDATABASE", "meshiuchi_production") %>
+    migrations_paths: db/cable_migrate
