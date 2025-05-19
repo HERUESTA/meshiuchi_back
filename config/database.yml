@@ -4,15 +4,31 @@ default: &default
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
 
-production:
-  # ───── アプリ本体 ─────
-  primary:
+development:
+  primary: &dev_primary             # ← アンカー付与
     <<: *default
-    url: <%= ENV["DATABASE_URL"] %>   # ← ここだけで十分
-    sslmode: require                 # Heroku/Fly 互換（任意）
-
-  # ───── Action Cable ─────
+    host: db
+    database: meshiuchi_development
+    username: user
+    password: password
+  queue:
+    <<: *dev_primary
+    migrations_paths: db/queue_migrate
   cable:
+    <<: *dev_primary
+    migrations_paths: db/cable_migrate
+
+test:
+  <<: *dev_primary                  # development とまったく同じ設定で可
+
+production:
+  primary: &prod_primary            # ← こちらもアンカーを付ける
     <<: *default
     url: <%= ENV["DATABASE_URL"] %>
+    sslmode: require
+  queue:
+    <<: *prod_primary
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *prod_primary
     migrations_paths: db/cable_migrate
