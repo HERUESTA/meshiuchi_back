@@ -5,7 +5,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
 
 development:
-  primary: &dev_primary             # ← アンカー付与
+  primary: &dev_primary
     <<: *default
     host: db
     database: meshiuchi_development
@@ -17,12 +17,15 @@ development:
   cable:
     <<: *dev_primary
     migrations_paths: db/cable_migrate
+  cache:                          # ←★追加
+    <<: *dev_primary
+    migrations_paths: db/cache_migrate
 
 test:
-  <<: *dev_primary                  # development とまったく同じ設定で可
+  <<: *dev_primary
 
 production:
-  primary: &prod_primary            # ← こちらもアンカーを付ける
+  primary: &prod_primary
     <<: *default
     url: <%= ENV["DATABASE_URL"] %>
     sslmode: require
@@ -32,3 +35,6 @@ production:
   cable:
     <<: *prod_primary
     migrations_paths: db/cable_migrate
+  cache:                          # ←★追加
+    <<: *prod_primary
+    migrations_paths: db/cache_migrate
