@@ -3,16 +3,16 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
-  username: <%= ENV.fetch("PGUSER", "postgres") %>
-  password: <%= ENV.fetch("PGPASSWORD", "") %>
-  host:     <%= ENV.fetch("PGHOST", "localhost") %>
 
 production:
-  primary: &prod_primary           
+  # ───── アプリ本体 ─────
+  primary:
     <<: *default
-    database: <%= ENV.fetch("PGDATABASE", "meshiuchi_production") %>
+    url: <%= ENV["DATABASE_URL"] %>   # ← ここだけで十分
+    sslmode: require                 # Heroku/Fly 互換（任意）
 
-  cable:                               
-    <<: *prod_primary                    
-    database: <%= ENV.fetch("PGDATABASE", "meshiuchi_production") %>
+  # ───── Action Cable ─────
+  cable:
+    <<: *default
+    url: <%= ENV["DATABASE_URL"] %>
     migrations_paths: db/cable_migrate
