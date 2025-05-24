@@ -20,8 +20,8 @@ class Api::V1::MoodRecipesController < ApplicationController
           "ingredients": ["..., ..."],
           "ingredients_gram": "...",
           "steps": ["...", "..."],
-          "servings": "..."
-          "cook_time": "...",
+          "servings": "...",
+          "cook_time": "..."
         }
       ]
       PROMPT
