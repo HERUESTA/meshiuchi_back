@@ -2,15 +2,26 @@ class Api::V1::MoodRecipesController < ApplicationController
   def create
     mood = params.require(:mood)
 
+    # 材料の分量と何人前という情報、作成にかかる時間を追加したい
     prompt = <<~PROMPT
       あなたはプロの料理研究家です。
       「#{mood}」気分の人におすすめの晩御飯のレシピを３品、
       以下の **JSON** 形式で日本語出力して下さい。
+      欲しい情報
+      料理名
+      材料
+      材料の分量
+      作成方法
+      何人前
+      料理時間
       [
         {
           "title": "...",
           "ingredients": ["..., ..."],
-          "steps": ["...", "..."]
+          "ingredients_gram": "...",
+          "steps": ["...", "..."],
+          "servings": "...",
+          "cook_time": "..."
         }
       ]
       PROMPT
