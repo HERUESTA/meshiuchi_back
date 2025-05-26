@@ -10,7 +10,7 @@ class Api::V1::MoodRecipesController < ApplicationController
       欲しい情報
       料理名
       材料
-      材料の分量
+      分量（材料名は入れないでください）
       作成方法
       何人前
       料理時間
@@ -18,7 +18,7 @@ class Api::V1::MoodRecipesController < ApplicationController
         {
           "title": "...",
           "ingredients": ["..., ..."],
-          "ingredients_gram": "...",
+          "gram": "...",
           "steps": ["...", "..."],
           "servings": "...",
           "cook_time": "..."
